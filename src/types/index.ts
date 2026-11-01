@@ -100,8 +100,16 @@ export type PriceLevel = 1 | 2 | 3 | 4;
 export interface Rating {
   value: number;
   count?: number;
-  /** "placeholder" = demodata, får aldrig visas som en riktig Google-rating. */
-  source: "google" | "editorial" | "placeholder";
+  /**
+   * Var betyget kommer ifrån. Visas alltid med källa ("Viator 4.9").
+   * "placeholder" = demodata, får aldrig visas som riktigt betyg.
+   * Google-betyg hämtas live via Places API och lagras inte här (Googles villkor).
+   */
+  source: "google" | "viator" | "civitatis" | "toursbylocals" | "clickandboat" | "editorial" | "placeholder";
+  /** ISO-datum då betyget kontrollerades. */
+  checkedAt?: string;
+  /** Skalans maxvärde. Standard 5 (Civitatis använder 10). */
+  scale?: number;
 }
 
 /* ---------------------------------------------------------------- places */
@@ -118,8 +126,21 @@ export interface Place {
   area: string;
   /** En mening — används i kort och listor. */
   summary: string;
-  /** "Why we like it" — redaktionell text. */
+  /**
+   * Beskrivning. För reviewStatus "draft" är detta faktabaserad text,
+   * för "reviewed" redaktionens egen bedömning efter besök.
+   */
   why: string[];
+  /**
+   * "draft" = verifierade fakta, inget besök ännu → visas utan rangnummer och utan "Why we like it".
+   * "reviewed" = redaktionen har varit där.
+   */
+  reviewStatus: "draft" | "reviewed";
+  /** Extern utmärkelse, t.ex. "1 Michelin star", "Michelin Guide". */
+  distinction?: string;
+  /** Källa och datum för faktauppgifterna. */
+  sourceUrl?: string;
+  factsCheckedAt?: string;
   goodToKnow: string[];
   perfectFor: string[];
   tags: string[];
@@ -143,8 +164,10 @@ export interface Place {
   sponsoredPriority?: number;
   /** ISO-datum. Efter detta datum visas inga sponsrade placeringar för platsen. */
   featuredUntil?: string;
-  /** Direkt bokning hos verksamheten. */
+  /** Bokningslänk (verksamheten själv eller en plattform). */
   bookingUrl?: string;
+  /** Plattform för bookingUrl, t.ex. "Viator", "GetYourGuide". Visas i knappen. */
+  bookingPlatform?: string;
   /** Spårad affiliatelänk (GetYourGuide, Viator, TheFork, Booking …). Får rel="sponsored". */
   affiliateUrl?: string;
   affiliatePartner?: string;

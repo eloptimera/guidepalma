@@ -4,8 +4,8 @@ import { PinIcon } from "./Icons";
  * Kartplaceholder i sajtens stil (ingen tung kartbiblioteks-JS).
  * Länkar till Google Maps med koordinaterna. Byt mot Mapbox/Google statisk karta när API-nyckel finns.
  */
-export function MapCard({ lat, lng, label }: { lat: number; lng: number; label: string }) {
-  const href = `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`;
+export function MapCard({ query, label }: { query: string; label: string }) {
+  const href = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(query)}`;
   return (
     <a className="map" href={href} target="_blank" rel="noopener" aria-label={`Open ${label} in Google Maps`}>
       <svg viewBox="0 0 400 300" preserveAspectRatio="xMidYMid slice" aria-hidden>

@@ -29,9 +29,15 @@ export const areas: Area[] = [
   { slug: "la-lonja", name: "La Lonja", hasPage: true },
   { slug: "portixol", name: "Portixol", hasPage: true },
   { slug: "el-terreno", name: "El Terreno", hasPage: true },
+  { slug: "centre", name: "City Centre", hasPage: false },
+  { slug: "paseo-mallorca", name: "Passeig de Mallorca", hasPage: false },
   { slug: "paseo-maritimo", name: "Paseo Marítimo", hasPage: false },
-  { slug: "bay-of-palma", name: "Bay of Palma", hasPage: false },
-  { slug: "tramuntana", name: "Serra de Tramuntana", hasPage: false },
+  { slug: "pere-garau", name: "Pere Garau", hasPage: false },
+  { slug: "es-secar", name: "Es Secar de la Real", hasPage: false },
+  { slug: "playa-de-palma", name: "Can Pastilla", hasPage: false },
+  { slug: "palma", name: "Palma", hasPage: false },
+  { slug: "calvia", name: "Calvià (west of Palma)", hasPage: false },
+  { slug: "andratx", name: "Andratx", hasPage: false },
 ];
 
 export const categories: Category[] = [
@@ -42,7 +48,7 @@ export const categories: Category[] = [
     navGroup: "eat",
     title: "Where to eat in Palma",
     intro:
-      "From whitewashed fishermen's bars in Portixol to tasting menus in old palace courtyards — the tables we would book for our own friends.",
+      "From Michelin-starred tasting menus in the Old Town to seafront dining in Portixol — every restaurant here is recognised by the Michelin Guide.",
     heroImage: {
       alt: "A long lunch table under a vine-covered pergola",
       tone: "terracotta",
@@ -50,7 +56,7 @@ export const categories: Category[] = [
       brief: "Overhead, shared plates, linen, late lunch shadows",
     },
     schemaType: "Restaurant",
-    types: ["Mallorcan", "Seafood", "Tapas", "Fine dining", "Rooftop", "Vegetarian", "Cheap eats"],
+    types: ["Modern Mallorcan", "Creative", "Modern", "Contemporary", "Mediterranean", "Traditional", "International", "Peruvian"],
     seo: {
       title: "Best Restaurants in Palma de Mallorca (2026 Guide)",
       description:
@@ -80,12 +86,12 @@ export const categories: Category[] = [
   },
   {
     slug: "bars",
-    name: "Bars & Rooftops",
+    name: "Rooftop Bars",
     singular: "Bar",
     navGroup: "drink",
-    title: "Bars, rooftops & late nights",
+    title: "Rooftop bars",
     intro:
-      "Vermut at noon, rooftops at golden hour, and the kind of small cocktail bar you only find if someone tells you.",
+      "Palma's hotel rooftops — cathedral views, sea views and the best seats for golden hour.",
     heroImage: {
       alt: "Two glasses on a rooftop ledge overlooking terracotta roofs",
       tone: "dusk",
@@ -93,7 +99,7 @@ export const categories: Category[] = [
       brief: "Rooftop, two glasses, cathedral out of focus behind",
     },
     schemaType: "BarOrPub",
-    types: ["Rooftop", "Cocktails", "Wine bar", "Vermut", "Late night"],
+    types: ["Rooftop"],
     seo: {
       title: "Best Rooftop Bars & Cocktail Bars in Palma",
       description: "Rooftop bars, wine bars and late-night cocktail spots in Palma de Mallorca.",
@@ -104,9 +110,9 @@ export const categories: Category[] = [
     name: "Beach Clubs",
     singular: "Beach club",
     navGroup: "drink",
-    title: "Beach clubs worth the day",
+    title: "Beach clubs near Palma",
     intro:
-      "Not every beach club needs a DJ and a magnum. These are the ones with good food, good water and a reason to stay until sunset.",
+      "From the city seafront to the coves of Illetes and Andratx — where to spend a long day by the water.",
     heroImage: {
       alt: "Sunbeds on a stone terrace above clear turquoise water",
       tone: "sea",
@@ -127,7 +133,7 @@ export const categories: Category[] = [
     navGroup: "do",
     title: "Boat trips & yacht charters",
     intro:
-      "Palma looks best from the water. Sunset sails, traditional llaüts and private charters to coves you cannot drive to.",
+      "Palma looks best from the water. Sunset catamarans, small-group sails and private yachts from the city's marinas.",
     heroImage: {
       alt: "A wooden sailing boat anchored in a quiet cove",
       tone: "sea",
@@ -135,7 +141,7 @@ export const categories: Category[] = [
       brief: "Wooden llaüt at anchor, aerial or high angle, turquoise cove",
     },
     schemaType: "TouristTrip",
-    types: ["Sunset sail", "Private charter", "Day trip"],
+    types: ["Sunset sail", "Small group", "Day trip", "Private charter"],
     isExperience: true,
     seo: {
       title: "Best Boat Trips & Yacht Charters in Palma",
@@ -149,7 +155,7 @@ export const categories: Category[] = [
     navGroup: "do",
     title: "Things to do in Palma",
     intro:
-      "Ten good days' worth of ideas — food tours, sunrise kayaks, mountain trains and the cooking class that is actually fun.",
+      "Food tours, wine tastings, bike tours, a morning kayak and the 1912 mountain train to Sóller.",
     heroImage: {
       alt: "Bicycles leaning against a sandstone wall in a narrow street",
       tone: "sand",
@@ -172,7 +178,7 @@ export const categories: Category[] = [
     navGroup: "see",
     title: "Sights & landmarks",
     intro:
-      "The cathedral, the castle and the courtyards — with notes on when to go so you see them properly.",
+      "The cathedral, the castle, the royal palace and the market — with prices and seasonal opening hours.",
     heroImage: {
       alt: "Gothic arches inside a stone courtyard",
       tone: "stone",
@@ -212,7 +218,7 @@ export const categories: Category[] = [
     singular: "Guide",
     navGroup: "do",
     title: "Private guides",
-    intro: "Local historians, food people and sailors who will show you their Palma.",
+    intro: "Licensed local guides and small operators for private history, walking and food tours.",
     heroImage: {
       alt: "A guide pointing up at carved stonework",
       tone: "olive",
@@ -220,7 +226,7 @@ export const categories: Category[] = [
       brief: "Guide and two guests looking up, Old Town doorway",
     },
     schemaType: "LocalBusiness",
-    types: ["History", "Food", "Architecture"],
+    types: ["History", "Food"],
     isExperience: true,
     seo: {
       title: "Private Guides in Palma de Mallorca",
@@ -235,14 +241,14 @@ export const intents: Intent[] = [
     slug: "romantic",
     label: "Romantic",
     line: "Candlelit courtyards and sunset sails",
-    tags: ["Romantic", "Sunset", "Sea view"],
+    tags: ["Romantic", "Sunset"],
     image: { alt: "Candle on a courtyard table", tone: "dusk", motif: "arch" },
   },
   {
     slug: "local",
     label: "Local",
-    line: "Where Palma actually eats and drinks",
-    tags: ["Local favourite"],
+    line: "Markets, Mallorcan cooking and old Palma",
+    tags: ["Traditional", "Market"],
     image: { alt: "Market stall with tomatoes", tone: "terracotta", motif: "shutters" },
   },
   {
@@ -262,14 +268,14 @@ export const intents: Intent[] = [
   {
     slug: "night-out",
     label: "Night out",
-    line: "From vermut hour to the last bar",
-    tags: ["Late night", "Cocktails"],
+    line: "Rooftops at golden hour, cocktails after",
+    tags: ["Rooftop", "Cocktails"],
     image: { alt: "Cocktail bar counter", tone: "night", motif: "sun" },
   },
   {
     slug: "beach-day",
     label: "Beach day",
-    line: "Calm water, long lunches, no rush",
+    line: "Beach clubs and a day on the water",
     tags: ["Beach", "On the water"],
     image: { alt: "Turquoise cove", tone: "sea", motif: "waves" },
   },

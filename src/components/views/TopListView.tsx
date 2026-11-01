@@ -39,7 +39,7 @@ export function TopListView({ list }: { list: TopList }) {
         <div className="wrap cover-inner on-image">
           <Breadcrumbs items={[{ name: cat.name, href: `/${cat.slug}` }, { name: list.shortTitle, href: listHref(list) }]} />
           <p className="eyebrow mt-m" style={{ opacity: 0.85 }}>
-            The {list.items.length} · {cat.name}
+            {list.items.length} places · {cat.name}
           </p>
           <h1 id="list-title" className="h1 mt-s" style={{ maxWidth: "14ch" }}>
             {list.title}
@@ -172,10 +172,17 @@ function RankedItem({ rank, item, place, flipped, priority }: { rank: number; it
           </dd>
         </div>
       ) : null}
-      <div>
-        <dt>Booking</dt>
-        <dd>{place.bookingUrl || place.affiliateUrl ? "Recommended" : "Walk-in"}</dd>
-      </div>
+      {place.distinction ? (
+        <div>
+          <dt>Award</dt>
+          <dd>{place.distinction}</dd>
+        </div>
+      ) : place.duration ? (
+        <div>
+          <dt>Duration</dt>
+          <dd>{place.duration}</dd>
+        </div>
+      ) : null}
     </dl>
   );
 
@@ -185,7 +192,7 @@ function RankedItem({ rank, item, place, flipped, priority }: { rank: number; it
         View {label} <ArrowRight />
       </Link>
       {out ? (
-        <a href={out.href} rel={out.rel} className="link">
+        <a href={out.href} rel={out.rel} target="_blank" className="link">
           {out.label} <ArrowUpRight size={14} />
         </a>
       ) : null}

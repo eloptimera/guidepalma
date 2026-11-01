@@ -1,6 +1,6 @@
 import Link from "next/link";
 import type { Place, Rating as RatingT } from "@/types";
-import { areaName, formatEuro, getCategory, outboundLink, placeHref, priceLabel } from "@/lib/content";
+import { RATING_SOURCE, areaName, formatEuro, getCategory, outboundLink, placeHref, priceLabel } from "@/lib/content";
 import { ArrowUpRight, PartnerMark, StarIcon } from "./Icons";
 import { Photo } from "./Photo";
 
@@ -8,11 +8,17 @@ import { Photo } from "./Photo";
 
 export function Rating({ rating }: { rating?: RatingT }) {
   if (!rating) return null;
+  const scale = rating.scale ?? 5;
+  const label = RATING_SOURCE[rating.source] ?? rating.source;
+  const title = `${label} rating${rating.count ? ` from ${rating.count.toLocaleString("en-GB")} reviews` : ""}${rating.checkedAt ? `, checked ${rating.checkedAt}` : ""}`;
   return (
-    <span className="rating" title={rating.source === "placeholder" ? "Demo rating — replace with live data" : `${rating.source} rating`}>
+    <span className="rating" title={title}>
       <StarIcon size={12} /> {rating.value.toFixed(1)}
-      {rating.source === "google" ? <span className="sr-only"> on Google</span> : null}
-      {rating.source === "placeholder" ? <span className="demo-flag" style={{ marginLeft: 6 }}>demo</span> : null}
+      {scale !== 5 ? `/${scale}` : ""}
+      <span className="rating-src">
+        {label}
+        {rating.count ? ` (${rating.count.toLocaleString("en-GB")})` : ""}
+      </span>
     </span>
   );
 }

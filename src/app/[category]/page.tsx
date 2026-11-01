@@ -96,8 +96,8 @@ export default async function CategoryPage({ params }: Props) {
                   <span>Areas</span>
                 </div>
                 <div>
-                  <strong>2026</strong>
-                  <span>Last checked</span>
+                  <strong>Nov 2026</strong>
+                  <span>Facts checked</span>
                 </div>
               </div>
             </div>
@@ -116,7 +116,7 @@ export default async function CategoryPage({ params }: Props) {
                 </div>
                 <div>
                   <p className="eyebrow" style={{ color: "var(--terracotta-soft)" }}>
-                    Our ranking
+                    The list
                   </p>
                   <p className="h3 mt-s">{l.title}</p>
                   <p style={{ opacity: 0.8, marginTop: 8 }}>{l.dek}</p>

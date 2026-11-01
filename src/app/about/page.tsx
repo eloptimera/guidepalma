@@ -23,8 +23,10 @@ export default function AboutPage() {
       </section>
       <div className="wrap-narrow article-body" style={{ paddingTop: 0 }}>
         <p>
-          {city.brand} is written by people who live in {city.name}. We visit anonymously, pay our own bills and only
-          include places we would recommend to a friend. Nobody can pay to be included in a ranking, or to move up one.
+          {city.brand} is an independent guide to {city.name}. We are building it in the open: every place starts as a
+          fact-checked listing — address, website, opening days and ratings with their source — and only gets our own
+          verdict once we have visited, anonymously and at our own expense. Nobody can pay to be included in a list, or
+          to move up one.
         </p>
         <h2 id="partners">How we make money</h2>
         <p>

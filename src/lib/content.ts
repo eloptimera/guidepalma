@@ -21,7 +21,8 @@ const c = () => getCityContent();
 /* ---------------------------------------------------------------- city & taxonomy */
 
 export const getCity = () => c().city;
-export const getCategories = () => c().categories;
+/** Bara kategorier som har minst en plats — tomma kategorier syns inte i nav, sitemap eller routes. */
+export const getCategories = () => c().categories.filter((cat) => c().places.some((p) => p.category === cat.slug));
 export const getCategory = (slug: string): Category | undefined =>
   c().categories.find((cat) => cat.slug === slug);
 export const getIntents = () => c().intents;
@@ -153,13 +154,30 @@ export const formatDate = (iso: string, opts: Intl.DateTimeFormatOptions = { day
 
 /** Utgående bokningslänk + korrekt rel för affiliate/sponsrat (Googles krav). */
 export function outboundLink(place: Place): { href: string; rel?: string; label: string } | null {
+  const experience = !!getCategory(place.category)?.isExperience;
   if (place.affiliateUrl)
-    return { href: place.affiliateUrl, rel: "sponsored noopener", label: place.priceFrom ? "Check availability" : "Book tickets" };
-  if (place.bookingUrl)
-    return { href: place.bookingUrl, rel: place.isSponsored ? "sponsored noopener" : "noopener", label: "Book a table" };
+    return { href: place.affiliateUrl, rel: "sponsored noopener", label: place.affiliatePartner ? `Book on ${place.affiliatePartner}` : "Check availability" };
+  if (place.bookingUrl) {
+    const rel = place.isSponsored ? "sponsored noopener" : "noopener";
+    if (place.bookingPlatform) return { href: place.bookingUrl, rel, label: `Book on ${place.bookingPlatform}` };
+    if (place.category === "restaurants") return { href: place.bookingUrl, rel, label: "Book on their website" };
+    if (place.category === "sights") return { href: place.bookingUrl, rel, label: "Buy tickets" };
+    return { href: place.bookingUrl, rel, label: experience ? "Check availability" : "Book" };
+  }
+  if (place.website) return { href: place.website, rel: place.isSponsored ? "sponsored noopener" : "noopener", label: "Visit website" };
   if (place.acceptsLeads) return { href: `#enquire`, label: "Send an enquiry" };
   return null;
 }
+
+export const RATING_SOURCE: Record<string, string> = {
+  google: "Google",
+  viator: "Viator",
+  civitatis: "Civitatis",
+  toursbylocals: "ToursByLocals",
+  clickandboat: "Click&Boat",
+  editorial: "Guide Palma",
+  placeholder: "Demo",
+};
 
 /* ---------------------------------------------------------------- search */
 

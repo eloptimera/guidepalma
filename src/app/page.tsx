@@ -70,7 +70,7 @@ export default function HomePage() {
     { label: "Drink", href: "/bars" },
     { label: "Relax", href: "/beach-clubs" },
     { label: "Explore", href: "/things-to-do" },
-    { label: "Party", href: "/search?q=late night" },
+    { label: "Rooftops", href: "/bars" },
     { label: "On the water", href: "/boat-trips" },
   ];
 
@@ -143,7 +143,7 @@ export default function HomePage() {
               </h2>
             </div>
             <p className="lead" style={{ maxWidth: 30 + "em" }}>
-              Six ways into the city — each one edited down to the places we would genuinely send a friend.
+              Six ways into the city — real places, with addresses, prices and how to book, checked November 2026.
             </p>
           </header>
           <div className="mosaic">
@@ -186,9 +186,9 @@ export default function HomePage() {
             </div>
             <div data-reveal>
               <p className="numeral lists-lead-count">{leadList.items.length}</p>
-              <p className="eyebrow text-terracotta">Restaurants · Updated {formatDate(leadList.updatedAt, { month: "long", year: "numeric" })}</p>
+              <p className="eyebrow text-terracotta">Michelin Guide · Checked {formatDate(leadList.updatedAt, { month: "long", year: "numeric" })}</p>
               <h3 className="h1" style={{ marginTop: 14 }}>
-                Best restaurants in <em>{city.name}</em>
+                Michelin-recognised restaurants in <em>{city.name}</em>
               </h3>
               <p className="lead mt-s">{leadList.dek}</p>
               <span className="btn btn-solid mt-m">
@@ -275,9 +275,9 @@ export default function HomePage() {
             <div>
               <p className="eyebrow">Things to do</p>
               <h2 id="do-title" className="h2">
-                Ten good days&rsquo; worth of ideas.
+                Things worth booking.
               </h2>
-              <p className="lead">Tours, sailing and day trips we have done ourselves — booked in a couple of taps.</p>
+              <p className="lead">Sailing, food tours, wine and the mountain train — with prices, ratings and their source.</p>
             </div>
             <Link href="/things-to-do" className="link">
               All experiences <ArrowRight size={14} />

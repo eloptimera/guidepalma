@@ -13,6 +13,7 @@ import {
   placeHref,
   priceLabel,
   priceWords,
+  formatDate,
 } from "@/lib/content";
 import { placeSchema } from "@/lib/seo";
 import { Breadcrumbs } from "../Breadcrumbs";
@@ -44,6 +45,7 @@ export function PlaceView({ place }: { place: Place }) {
                 <PartnerMark /> Featured Partner
               </span>
             ) : null}
+            {place.distinction ? <p className="distinction" style={{ color: "#f6dcc3" }}>{place.distinction}</p> : null}
             <p className="eyebrow" style={{ opacity: 0.85 }}>
               {place.type} · {areaName(place.area)}
             </p>
@@ -76,13 +78,40 @@ export function PlaceView({ place }: { place: Place }) {
         <div className="wrap place-layout">
           <div>
             <div className="prose-block why" data-reveal>
-              <p className="eyebrow text-terracotta">Our take</p>
-              <h2 className="h2 mt-s" style={{ marginBottom: 28 }}>
-                Why we <em>like it</em>
-              </h2>
+              {place.reviewStatus === "reviewed" ? (
+                <>
+                  <p className="eyebrow text-terracotta">Our take</p>
+                  <h2 className="h2 mt-s" style={{ marginBottom: 28 }}>
+                    Why we <em>like it</em>
+                  </h2>
+                </>
+              ) : (
+                <>
+                  <p className="eyebrow text-terracotta">The facts</p>
+                  <h2 className="h2 mt-s" style={{ marginBottom: 28 }}>
+                    About {place.name}
+                  </h2>
+                </>
+              )}
               {place.why.map((p, i) => (
                 <p key={i}>{p}</p>
               ))}
+              {place.reviewStatus === "draft" ? (
+                <p className="facts-note mt-m">
+                  We haven&rsquo;t reviewed {place.name} yet. The details on this page were checked on{" "}
+                  {place.factsCheckedAt ? formatDate(place.factsCheckedAt) : "a recent date"}
+                  {place.sourceUrl ? (
+                    <>
+                      {" "}
+                      against{" "}
+                      <a href={place.sourceUrl} target="_blank" rel="noopener" className="prose-link">
+                        {new URL(place.sourceUrl).hostname.replace("www.", "")}
+                      </a>
+                    </>
+                  ) : null}
+                  . Prices and hours change — confirm before you go.
+                </p>
+              ) : null}
             </div>
 
             <div className="prose-block gallery">
@@ -91,6 +120,7 @@ export function PlaceView({ place }: { place: Place }) {
               ))}
             </div>
 
+            {place.goodToKnow.length ? (
             <div className="prose-block" data-reveal>
               <h2 className="h3">Good to know</h2>
               <ol className="know">
@@ -102,14 +132,21 @@ export function PlaceView({ place }: { place: Place }) {
                 ))}
               </ol>
             </div>
+            ) : null}
 
             <div className="prose-block" data-reveal>
-              <h2 className="h3">Perfect for</h2>
-              <div className="perfect">
-                {place.perfectFor.map((p) => (
-                  <span key={p}>{p}</span>
-                ))}
-              </div>
+              {place.perfectFor.length ? (
+                <>
+                  <h2 className="h3">Perfect for</h2>
+                  <div className="perfect">
+                    {place.perfectFor.map((p) => (
+                      <span key={p}>{p}</span>
+                    ))}
+                  </div>
+                </>
+              ) : (
+                <h2 className="h3">Tagged</h2>
+              )}
               <div className="nb-jump">
                 {place.tags.map((t) => (
                   <Link key={t} href={`/search?q=${encodeURIComponent(t.toLowerCase())}`} className="tag">
@@ -127,7 +164,7 @@ export function PlaceView({ place }: { place: Place }) {
                     <li key={list.slug}>
                       <span className="numeral">{rank}</span>
                       <Link href={`${listHref(list)}#rank-${rank}`} className="prose-link">
-                        No. {rank} in {list.title}
+                        #{rank} in {list.title}
                       </Link>
                     </li>
                   ))}
@@ -153,6 +190,26 @@ export function PlaceView({ place }: { place: Place }) {
                     · {place.type}
                   </dd>
                 </div>
+                {place.distinction ? (
+                  <div>
+                    <dt>Award</dt>
+                    <dd>{place.distinction}</dd>
+                  </div>
+                ) : null}
+                {place.duration ? (
+                  <div>
+                    <dt>Duration</dt>
+                    <dd>{place.duration}</dd>
+                  </div>
+                ) : null}
+                {place.rating ? (
+                  <div>
+                    <dt>Rating</dt>
+                    <dd>
+                      <Rating rating={place.rating} />
+                    </dd>
+                  </div>
+                ) : null}
                 <div>
                   <dt>Price</dt>
                   <dd>{place.priceFrom ? `From ${formatEuro(place.priceFrom)} pp` : `${priceLabel(place.priceLevel)} · ${priceWords[place.priceLevel]}`}</dd>
@@ -194,8 +251,8 @@ export function PlaceView({ place }: { place: Place }) {
                   </div>
                 ) : null}
               </dl>
-              {out && !place.acceptsLeads ? (
-                <a href={out.href} rel={out.rel} className="btn btn-solid">
+              {out && out.href !== "#enquire" ? (
+                <a href={out.href} rel={out.rel} target="_blank" className="btn btn-solid">
                   {out.label} <ArrowUpRight size={14} />
                 </a>
               ) : null}
@@ -212,7 +269,7 @@ export function PlaceView({ place }: { place: Place }) {
               </div>
             ) : null}
 
-            {place.geo ? <MapCard lat={place.geo.lat} lng={place.geo.lng} label={place.name} /> : null}
+            {!place.address.toLowerCase().includes("on request") ? <MapCard query={`${place.name}, ${place.address}`} label={place.name} /> : null}
 
             {place.isSponsored ? (
               <p className="affiliate-note">

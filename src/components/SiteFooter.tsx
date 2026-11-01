@@ -16,7 +16,7 @@ export function SiteFooter() {
         </p>
         <div className="footer-cols">
           <p className="footer-note">
-            {city.brand} is an independent guide to {city.name} de {city.region}. Our editors choose every place on
+            {city.brand} is an independent guide to {city.name} de {city.region}. Places are chosen on
             their own merit. Partners are always clearly labelled and never buy their way into a ranking.
           </p>
           <div>

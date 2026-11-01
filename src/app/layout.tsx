@@ -34,12 +34,21 @@ export const viewport: Viewport = {
 function buildNav(): NavItem[] {
   const cats = getCategories();
   const group = (g: string) => cats.filter((c) => c.navGroup === g).map((c) => ({ label: c.name, href: `/${c.slug}` }));
+  // Grupper utan innehåll döljs; gruppens länk går till dess första kategori.
+  const groups = (
+    [
+      ["Eat", "eat"],
+      ["Drink", "drink"],
+      ["Do", "do"],
+      ["See", "see"],
+      ["Stay", "stay"],
+    ] as const
+  )
+    .map(([label, g]) => ({ label, children: group(g) }))
+    .filter((g) => g.children.length)
+    .map((g) => ({ label: g.label, href: g.children[0]!.href, children: g.children }));
   return [
-    { label: "Eat", href: "/restaurants", children: group("eat") },
-    { label: "Drink", href: "/bars", children: group("drink") },
-    { label: "Do", href: "/things-to-do", children: group("do") },
-    { label: "See", href: "/sights", children: group("see") },
-    { label: "Stay", href: "/where-to-stay", children: group("stay") },
+    ...groups,
     {
       label: "Explore",
       href: "/neighbourhoods",

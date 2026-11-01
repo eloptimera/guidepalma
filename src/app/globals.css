@@ -2580,3 +2580,31 @@ p {
   padding: 1px 6px;
   border-radius: 3px;
 }
+
+.rating-src {
+  font-size: 0.78em;
+  color: var(--ink-faint);
+  margin-left: 2px;
+}
+.on-image .rating-src,
+.cover .rating-src {
+  color: inherit;
+  opacity: 0.75;
+}
+.distinction {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--terracotta);
+}
+.facts-note {
+  font-size: 0.78rem;
+  color: var(--ink-faint);
+  border-top: 1px solid var(--line);
+  padding-top: 14px;
+  margin-top: 4px;
+}

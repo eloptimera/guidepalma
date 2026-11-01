@@ -97,7 +97,7 @@ export function CategoryExplorer({ items, cards, types, areas, bestFor, noun, sp
             {organicCount} {organicCount === 1 ? noun.replace(/s$/, "") : noun}
             {active ? " match your filters" : ""}
           </span>
-          <span>Chosen by our editors · partners always labelled</span>
+          <span>Facts checked Nov 2026 · no paid placements</span>
         </p>
         {visible.length ? (
           <div className="card-grid">{visible.map((i) => <div key={items[i]!.key}>{cards[i]}</div>)}</div>
